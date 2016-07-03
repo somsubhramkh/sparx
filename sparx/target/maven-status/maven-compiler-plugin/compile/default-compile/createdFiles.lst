@@ -1,0 +1,7 @@
+sparx\service\UserService.class
+sparx\controller\HomeController.class
+sparx\controller\LoginController.class
+sparx\service\EmailService.class
+sparx\controller\UserRegistrationController.class
+sparx\model\User.class
+sparx\dao\UserDAO.class

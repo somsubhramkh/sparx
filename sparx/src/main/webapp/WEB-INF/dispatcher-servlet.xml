@@ -1,0 +1,78 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/mvc 
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+
+	<!-- Controller -->
+	<!-- ============================================================================================= -->
+	<context:component-scan base-package="sparx" />
+
+
+
+	<mvc:annotation-driven />
+	 
+
+
+	<mvc:default-servlet-handler />
+	<mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
+
+
+	<!-- View Resolver -->
+	<!-- ============================================================================================= -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">  
+  <property name="host" value="smtp.gmail.com" />  
+    <property name="username" value="som.musichub@gmail.com" />  
+    <property name="password" value="transformation" />  
+    <property name="javaMailProperties">  
+       <props>  
+              <prop key="mail.smtp.auth">true</prop>  
+              <!-- <prop key="mail.smtp.socketFactory.port">587</prop>   -->
+              <!-- <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop> -->  
+              <prop key="mail.smtp.port">587</prop>
+              <prop key="mail.smtp.starttls.enable">true</prop>   
+        </props>  
+    </property>  
+</bean>  
+	
+	
+<!-- for implementing multipart file -->
+	<!-- ====================================================================================================== -->
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1024000" />
+	</bean>
+</beans>
+
+
+
+
